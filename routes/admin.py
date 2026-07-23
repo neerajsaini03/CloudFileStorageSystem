@@ -83,7 +83,29 @@ def admin_dashboard():
         users=users,
         files=files,
         recent_logs=recent_logs
+ 
     )
+# =====================================
+# TEMPORARY MAKE ADMIN ROUTE
+# =====================================
+
+@admin.route("/make-admin")
+def make_admin():
+
+    from database.models import User
+    from database.db import db
+
+    user = User.query.filter_by(
+        email="neerajsaini2619@gmail.com"
+    ).first()
+
+    if not user:
+        return "User not found"
+
+    user.is_admin = True
+    db.session.commit()
+
+    return "Admin created successfully!"
 # =====================================
 # Delete User
 # =====================================
