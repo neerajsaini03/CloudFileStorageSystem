@@ -91,14 +91,7 @@ Thank you for using our application.
 Cloud File Storage Team
 """
 
-        try:
-            send_email(
-                subject=subject,
-                recipients=[user.email],
-                body=body
-            )
-        except Exception as e:
-            print(f"Email Error: {e}")
+        print("Email sending skipped for testing.")
 
         flash(
             "Registration successful! Please login.",
@@ -191,14 +184,7 @@ If you did not request a password reset, please ignore this email.
 Cloud File Storage Team
 """
 
-        try:
-            send_email(
-                subject=subject,
-                recipients=[user.email],
-                body=body
-        )
-        except Exception as e:
-            print(f"Email Error: {e}")
+        print("Email sending skipped for testing.")
 
         flash(
             "OTP has been sent to your email.",
