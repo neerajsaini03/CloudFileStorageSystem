@@ -17,9 +17,11 @@ class Config:
     # Database Configuration
     # ==========================
 
-    SQLALCHEMY_DATABASE_URI = "sqlite:///database.db"
+    SQLALCHEMY_DATABASE_URI = os.getenv(
+        "DATABASE_URL",
+        "sqlite:///database.db"
+    )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-
     # ==========================
     # File Upload Configuration
     # ==========================
