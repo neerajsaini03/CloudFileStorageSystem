@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}
+Shared File
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-8">
+
+            <div class="card shadow">
+
+                <div class="card-header bg-primary text-white">
+
+                    <h3 class="mb-0">
+                        📁 Shared File
+                    </h3>
+
+                </div>
+
+                <div class="card-body">
+
+                    <h4 class="mb-3">
+                        {{ file.original_filename }}
+                    </h4>
+
+                    <table class="table table-bordered">
+
+                        <tr>
+                            <th width="30%">Display Name</th>
+                            <td>
+                                {{ file.display_name or "Not provided" }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Description</th>
+                            <td>
+                                {{ file.description or "No description available" }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>File Type</th>
+                            <td>
+                                {{ file.file_type }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>File Size</th>
+                            <td>
+                                {{ file.file_size }} Bytes
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Uploaded On</th>
+                            <td>
+                                {{ file.upload_date }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <th>Last Modified</th>
+                            <td>
+                                {{ file.last_modified }}
+                            </td>
+                        </tr>
+
+                    </table>
+
+                    <div class="text-center mt-4">
+
+                        <a
+                            href="{{ url_for('files.download_shared_file', token=file.share_token) }}"
+                            class="btn btn-success btn-lg">
+
+                            ⬇ Download File
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Files
+{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">My Uploaded Files</h2>
+
+<!-- Search Form -->
+<form method="GET" action="{{ url_for('files.my_files') }}" class="mb-3">
+
+    <div class="input-group">
+
+        <input
+            type="text"
+            name="search"
+            class="form-control"
+            placeholder="Search files..."
+            value="{{ search }}">
+
+        <button class="btn btn-primary" type="submit">
+            Search
+        </button>
+
+    </div>
+
+</form>
+
+<table class="table table-bordered table-hover">
+
+    <thead class="table-dark">
+
+        <tr>
+
+            <th>File Name</th>
+            <th>Type</th>
+            <th>Size (Bytes)</th>
+            <th>Upload Date</th>
+            <th>Actions</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+    {% for file in files %}
+
+        <tr>
+
+            <td>{{ file.original_filename }}</td>
+
+            <td>{{ file.file_type }}</td>
+
+            <td>{{ file.file_size }}</td>
+
+            <td>{{ file.upload_date }}</td>
+
+            <td>
+
+                <!-- Preview -->
+                <a
+                    href="{{ url_for('files.preview_file', file_id=file.id) }}"
+                    class="btn btn-info btn-sm"
+                    target="_blank">
+                    Preview
+                </a>
+
+                <!-- Download -->
+                <a
+                    href="{{ url_for('files.download_file', file_id=file.id) }}"
+                    class="btn btn-success btn-sm">
+                    Download
+                </a>
+                <a href="{{ url_for('files.file_versions', file_id=file.id) }}"
+                    class="btn btn-info btn-sm">
+                    Versions
+                </a>
+
+                <!-- Share -->
+                <a
+                    href="{{ url_for('files.share_file', file_id=file.id) }}"
+                    class="btn btn-warning btn-sm">
+                    Share
+                </a>
+
+                <!-- Delete -->
+                <form
+                    method="POST"
+                    action="{{ url_for('files.delete_file', file_id=file.id) }}"
+                    style="display:inline;">
+
+                    <button
+                        type="submit"
+                        class="btn btn-danger btn-sm"
+                        onclick="return confirm('Are you sure you want to delete this file?');">
+                        Delete
+                    </button>
+
+                </form>
+
+            </td>
+
+        </tr>
+
+    {% else %}
+
+        <tr>
+
+            <td colspan="5" class="text-center">
+
+                No files uploaded yet.
+
+            </td>
+
+        </tr>
+
+    {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

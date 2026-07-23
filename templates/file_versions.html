@@ -1,0 +1,54 @@
+{% extends "base.html" %} {% block title %} Version History {% endblock %} {%
+block content %}
+
+<div class="container mt-4">
+  <h2 class="mb-4">Version History</h2>
+
+  <div class="card shadow">
+    <div class="card-header">
+      <strong> {{ current_file.original_filename }} </strong>
+    </div>
+
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Version</th>
+            <th>Upload Date</th>
+            <th>Size</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for file in versions %}
+
+          <tr>
+            <td>
+              Version {{ file.version }} {% if loop.first %}
+              <span class="badge bg-success"> Latest </span>
+              {% endif %}
+            </td>
+
+            <td>{{ file.upload_date.strftime("%d %b %Y %I:%M %p") }}</td>
+
+            <td>{{ "%.2f"|format(file.file_size / 1024 / 1024) }} MB</td>
+
+            <td>
+              <a
+                href="{{ url_for('files.download_file', file_id=file.id) }}"
+                class="btn btn-primary btn-sm"
+              >
+                Download
+              </a>
+            </td>
+          </tr>
+
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

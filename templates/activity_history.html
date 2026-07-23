@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Activity History{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">
+        Activity History
+    </h2>
+
+    {% if activities %}
+
+    <table class="table table-bordered table-hover">
+
+        <thead class="table-dark">
+
+            <tr>
+                <th>Date & Time</th>
+                <th>Action</th>
+                <th>Description</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for activity in activities %}
+
+            <tr>
+
+                <td>
+                    {{ activity.created_at.strftime("%d-%m-%Y %H:%M") }}
+                </td>
+
+                <td>
+                    {{ activity.action }}
+                </td>
+
+                <td>
+                    {{ activity.description }}
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+    {% else %}
+
+    <div class="alert alert-info">
+
+        No activity found.
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

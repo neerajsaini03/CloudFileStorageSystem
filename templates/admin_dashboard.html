@@ -1,0 +1,194 @@
+{% extends "base.html" %} {% block title %}Admin Dashboard{% endblock %} {%
+block content %}
+
+<div class="container mt-4">
+  <h2 class="mb-4">Admin Dashboard</h2>
+
+  <!-- Dashboard Cards -->
+
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <div class="card shadow text-center">
+        <div class="card-body">
+          <h3>{{ total_users }}</h3>
+
+          <p>Total Users</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card shadow text-center">
+        <div class="card-body">
+          <h3>{{ total_files }}</h3>
+
+          <p>Total Files</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card shadow text-center">
+        <div class="card-body">
+          <h3>{{ total_storage }}</h3>
+
+          <p>Storage Used (MB)</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card shadow text-center">
+        <div class="card-body">
+          <h3>{{ total_logs }}</h3>
+
+          <p>Activity Logs</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Users -->
+
+  <div class="card shadow mb-4">
+    <div class="card-header bg-primary text-white">Registered Users</div>
+
+    <div class="card-body table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Admin</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for user in users %}
+
+          <tr>
+            <td>{{ user.id }}</td>
+
+            <td>{{ user.fullname }}</td>
+
+            <td>{{ user.email }}</td>
+
+            <td>
+              {% if user.is_admin %}
+
+              <span class="badge bg-success"> Yes </span>
+
+              {% else %}
+
+              <span class="badge bg-secondary"> No </span>
+
+              {% endif %}
+            </td>
+
+            <td>
+              <form
+                method="POST"
+                action="{{ url_for('admin.delete_user', user_id=user.id) }}"
+                onsubmit="return confirm('Delete this user?');"
+              >
+                <button class="btn btn-danger btn-sm">Delete</button>
+              </form>
+            </td>
+          </tr>
+
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Files -->
+
+  <div class="card shadow mb-4">
+    <div class="card-header bg-success text-white">Uploaded Files</div>
+
+    <div class="card-body table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>File Name</th>
+            <th>User ID</th>
+            <th>Size (KB)</th>
+            <th>Version</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for file in files %}
+
+          <tr>
+            <td>{{ file.id }}</td>
+
+            <td>{{ file.original_filename }}</td>
+
+            <td>{{ file.user_id }}</td>
+
+            <td>{{ (file.file_size / 1024)|round(2) }}</td>
+
+            <td>v{{ file.version }}</td>
+
+            <td>
+              <form
+                method="POST"
+                action="{{ url_for('admin.delete_file', file_id=file.id) }}"
+                onsubmit="return confirm('Delete this file?');"
+              >
+                <button type="submit" class="btn btn-danger btn-sm">
+                  Delete
+                </button>
+              </form>
+            </td>
+          </tr>
+
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Activity Logs -->
+
+  <div class="card shadow">
+    <div class="card-header bg-dark text-white">Recent Activity</div>
+
+    <div class="card-body table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>User ID</th>
+            <th>Action</th>
+            <th>Description</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for log in recent_logs %}
+
+          <tr>
+            <td>{{ log.user_id }}</td>
+
+            <td>{{ log.action }}</td>
+
+            <td>{{ log.description }}</td>
+
+            <td>{{ log.created_at.strftime("%d-%m-%Y %I:%M %p") }}</td>
+          </tr>
+
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+
+<div class="text-center mt-5">
+
+    <h1 class="display-4">
+        Cloud File Storage System
+    </h1>
+
+    <p class="lead mt-3">
+        Store, manage and access your files securely from anywhere.
+    </p>
+
+    <img src="{{ url_for('static', filename='images/cloud.png.jpg') }}"
+     width="250"
+     class="my-4"
+     alt="Cloud">
+
+    <div>
+
+        <a href="/login" class="btn btn-primary btn-lg me-3">
+            Login
+        </a>
+
+        <a href="/register" class="btn btn-success btn-lg">
+            Register
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}
