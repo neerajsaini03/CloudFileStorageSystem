@@ -81,6 +81,8 @@ class Config:
     MAIL_USERNAME = os.getenv("MAIL_USERNAME")
     MAIL_PASSWORD = os.getenv("MAIL_PASSWORD")
     MAIL_DEFAULT_SENDER = os.getenv("MAIL_DEFAULT_SENDER")
+    
+    MAIL_TIMEOUT = 10
 
     MAIL_SUPPRESS_SEND = False
     MAIL_ASCII_ATTACHMENTS = False
