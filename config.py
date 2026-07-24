@@ -1,12 +1,11 @@
 import os
 from dotenv import load_dotenv
 
-# Load .env file
+# Load .env variables
 load_dotenv()
 
 
 class Config:
-
     # ==========================
     # Flask
     # ==========================
@@ -20,7 +19,7 @@ class Config:
         "sqlite:///database.db"
     )
 
-    # Fix old postgres:// URLs if needed
+    # Fix old postgres:// URLs
     if DATABASE_URL.startswith("postgres://"):
         DATABASE_URL = DATABASE_URL.replace(
             "postgres://",
@@ -32,10 +31,15 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # ==========================
-    # Upload Settings
+    # File Upload
     # ==========================
     UPLOAD_FOLDER = "uploads"
-    MAX_CONTENT_LENGTH = 16 * 1024 * 1024   # 16 MB
+
+    # Maximum upload size (16 MB per file)
+    MAX_CONTENT_LENGTH = 16 * 1024 * 1024
+
+    # Maximum storage per user (1 GB)
+    MAX_STORAGE_PER_USER = 1024 * 1024 * 1024
 
     # ==========================
     # AWS S3
@@ -49,3 +53,9 @@ class Config:
     # Resend Email API
     # ==========================
     RESEND_API_KEY = os.getenv("RESEND_API_KEY")
+
+    # Must be a verified sender/domain in Resend
+    RESEND_FROM_EMAIL = os.getenv(
+        "RESEND_FROM_EMAIL",
+        "onboarding@resend.dev"
+    )
