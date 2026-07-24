@@ -1,15 +1,21 @@
+from flask import current_app
 from flask_mail import Mail, Message
+import traceback
 
 mail = Mail()
 
 
 def send_email(subject, recipients, body):
-    """
-    Send an email safely.
-    If email sending fails, the application will continue running.
-    """
-
     try:
+        print("=" * 50)
+        print("MAIL_SERVER:", current_app.config.get("MAIL_SERVER"))
+        print("MAIL_PORT:", current_app.config.get("MAIL_PORT"))
+        print("MAIL_USE_TLS:", current_app.config.get("MAIL_USE_TLS"))
+        print("MAIL_USE_SSL:", current_app.config.get("MAIL_USE_SSL"))
+        print("MAIL_USERNAME:", current_app.config.get("MAIL_USERNAME"))
+        print("MAIL_DEFAULT_SENDER:", current_app.config.get("MAIL_DEFAULT_SENDER"))
+        print("=" * 50)
+
         msg = Message(
             subject=subject,
             recipients=recipients,
@@ -18,19 +24,9 @@ def send_email(subject, recipients, body):
 
         mail.send(msg)
 
-        print("=" * 50)
-        print("✅ Email sent successfully.")
-        print("Recipients:", recipients)
-        print("=" * 50)
-
+        print("✅ Email sent successfully")
         return True
 
-    except Exception as e:
-        print("=" * 50)
-        print("❌ Email sending failed!")
-        print(type(e).__name__)
-        print(str(e))
-        print("=" * 50)
-
-        # Do NOT stop the application
+    except Exception:
+        traceback.print_exc()
         return False
