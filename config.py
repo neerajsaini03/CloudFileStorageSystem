@@ -1,27 +1,26 @@
 import os
 from dotenv import load_dotenv
 
-# Load environment variables from .env
+# Load .env file
 load_dotenv()
 
 
 class Config:
-    # ==========================
-    # Flask Configuration
-    # ==========================
-
-    SECRET_KEY = os.getenv("SECRET_KEY")
 
     # ==========================
-    # Database Configuration
+    # Flask
     # ==========================
+    SECRET_KEY = os.getenv("SECRET_KEY", "mysecretkey")
 
+    # ==========================
+    # Database
+    # ==========================
     DATABASE_URL = os.getenv(
         "DATABASE_URL",
         "sqlite:///database.db"
     )
 
-    # Fix Render/Heroku-style PostgreSQL URL if needed
+    # Fix old postgres:// URLs if needed
     if DATABASE_URL.startswith("postgres://"):
         DATABASE_URL = DATABASE_URL.replace(
             "postgres://",
@@ -33,56 +32,20 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # ==========================
-    # File Upload Configuration
+    # Upload Settings
     # ==========================
-
-    # Local upload folder (used temporarily before uploading to S3)
     UPLOAD_FOLDER = "uploads"
-
-    # Maximum file size (16 MB)
-    MAX_CONTENT_LENGTH = 16 * 1024 * 1024
-
-    # Maximum storage allowed per user (1 GB)
-    MAX_STORAGE_PER_USER = 1024 * 1024 * 1024
-
-    # Allowed file extensions
-    ALLOWED_EXTENSIONS = {
-        "pdf",
-        "doc",
-        "docx",
-        "txt",
-        "png",
-        "jpg",
-        "jpeg",
-        "gif",
-        "zip",
-        "rar"
-    }
+    MAX_CONTENT_LENGTH = 16 * 1024 * 1024   # 16 MB
 
     # ==========================
-    # AWS S3 Configuration
+    # AWS S3
     # ==========================
-
     AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
     AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
     AWS_REGION = os.getenv("AWS_REGION")
     AWS_BUCKET_NAME = os.getenv("AWS_BUCKET_NAME")
 
     # ==========================
-    # Flask-Mail Configuration
+    # Resend Email API
     # ==========================
-
-    MAIL_SERVER = os.getenv("MAIL_SERVER")
-    MAIL_PORT = int(os.getenv("MAIL_PORT", 587))
-
-    MAIL_USE_TLS = os.getenv("MAIL_USE_TLS", "True").lower() == "true"
-    MAIL_USE_SSL = os.getenv("MAIL_USE_SSL", "False").lower() == "true"
-
-    MAIL_USERNAME = os.getenv("MAIL_USERNAME")
-    MAIL_PASSWORD = os.getenv("MAIL_PASSWORD")
-    MAIL_DEFAULT_SENDER = os.getenv("MAIL_DEFAULT_SENDER")
-    
-    MAIL_TIMEOUT = 10
-
-    MAIL_SUPPRESS_SEND = False
-    MAIL_ASCII_ATTACHMENTS = False
+    RESEND_API_KEY = os.getenv("RESEND_API_KEY")

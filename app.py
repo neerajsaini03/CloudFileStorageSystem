@@ -7,6 +7,7 @@ from config import Config
 from database.db import db
 from database.models import User
 from flask import Flask, render_template
+from utils.email import send_email
 
 from routes.auth import auth
 from routes.dashboard import main
@@ -16,7 +17,6 @@ from routes.profile import profile
 from routes.admin import admin
 
 from utils.aws import test_s3_connection
-from utils.email import mail
 
 
 # ==========================
@@ -35,7 +35,6 @@ db.init_app(app)
 
 migrate = Migrate(app, db)
 
-mail.init_app(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
