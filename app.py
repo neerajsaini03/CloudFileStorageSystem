@@ -71,10 +71,17 @@ app.register_blueprint(admin)
 # ==========================
 
 with app.app_context():
+    try:
+        db.create_all()
+    except Exception as e:
+        print("Database initialization failed:")
+        print(e)
 
-    db.create_all()
-
-    test_s3_connection()
+    try:
+        test_s3_connection()
+    except Exception as e:
+        print("AWS connection failed:")
+        print(e)
 
 
 # ==========================
