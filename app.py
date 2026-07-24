@@ -25,6 +25,7 @@ from utils.aws import test_s3_connection
 
 app = Flask(__name__)
 app.config.from_object(Config)
+print("RESEND_API_KEY =", app.config.get("RESEND_API_KEY"))
 
 
 # ==========================

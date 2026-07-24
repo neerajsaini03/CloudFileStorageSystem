@@ -1,38 +1,29 @@
 import resend
 from flask import current_app
+import traceback
 
 
 def send_email(subject, recipients, body):
-    """
-    Send email using Resend API.
-    Returns True if successful, False otherwise.
-    """
-
     try:
-        # Set API Key
         resend.api_key = current_app.config["RESEND_API_KEY"]
 
-        params = {
+        response = resend.Emails.send({
             "from": "Cloud File Storage <onboarding@resend.dev>",
             "to": recipients,
             "subject": subject,
             "text": body,
-        }
+        })
 
-        resend.Emails.send(params)
-
-        print("=" * 50)
-        print("✅ Email sent successfully!")
-        print("Recipients:", recipients)
-        print("=" * 50)
+        print("=" * 60)
+        print("RESEND RESPONSE:")
+        print(response)
+        print("=" * 60)
 
         return True
 
-    except Exception as e:
-        print("=" * 50)
-        print("❌ Email sending failed!")
-        print(type(e).__name__)
-        print(str(e))
-        print("=" * 50)
-
+    except Exception:
+        print("=" * 60)
+        print("RESEND ERROR")
+        traceback.print_exc()
+        print("=" * 60)
         return False
