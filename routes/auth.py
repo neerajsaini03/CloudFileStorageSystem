@@ -63,11 +63,11 @@ def register():
 
         db.session.add(user)
         db.session.commit()
-        #log_activity(
-        #    user.id,
-        #    "User Registered",
-        #    f"{user.fullname} created a new account."
-        #)
+        log_activity(
+            user.id,
+            "User Registered",
+            f"{user.fullname} created a new account."
+        )
 
         subject = "Welcome to Cloud File Storage"
 
