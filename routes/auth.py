@@ -91,11 +91,11 @@ Thank you for using our application.
 Cloud File Storage Team
 """
 
-        #send_email(
-         #   subject=subject,
-          #  recipients=[user.email],
-           # body=body
-        #)
+        send_email(
+            subject=subject,
+            recipients=[user.email],
+            body=body
+        )
 
         
 
