@@ -91,11 +91,11 @@ Thank you for using our application.
 Cloud File Storage Team
 """
 
-        send_email(
-            subject=subject,
-            recipients=[user.email],
-            body=body
-        )
+       # send_email(
+        #    subject=subject,
+        #    recipients=[user.email],
+        #    body=body
+        #)
 
         
 
@@ -190,11 +190,11 @@ If you did not request a password reset, please ignore this email.
 Cloud File Storage Team
 """
 
-        send_email(
-            subject=subject,
-            recipients=[user.email],
-            body=body
-        )
+        #send_email(
+        #    subject=subject,
+        #    recipients=[user.email],
+         #   body=body
+        #)
 
         flash(
             "OTP has been sent to your email.",
