@@ -9,3 +9,11 @@ h1 {
 .navbar-brand {
     font-weight: bold;
 }
+.hero-image{
+    width:100%;
+    max-width:700px;
+    height:auto;
+    border-radius:20px;
+    display:block;
+    margin:auto;
+}
