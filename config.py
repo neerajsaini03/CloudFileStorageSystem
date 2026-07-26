@@ -39,6 +39,45 @@ class Config:
 
     # Maximum storage per user (1 GB)
     MAX_STORAGE_PER_USER = 1024 * 1024 * 1024
+    
+    # ==========================
+    # Allowed File Extensions
+    # ==========================
+
+    ALLOWED_EXTENSIONS = {
+        "txt",
+        "pdf",
+        "doc",
+        "docx",
+        "xls",
+        "xlsx",
+        "ppt",
+        "pptx",
+        "jpg",
+        "jpeg",
+        "png",
+        "gif",
+        "bmp",
+        "webp",
+        "mp3",
+        "wav",
+        "mp4",
+        "avi",
+        "mov",
+        "zip",
+        "rar",
+        "7z",
+        "csv",
+        "py",
+        "java",
+        "c",
+        "cpp",
+        "html",
+        "css",
+        "js",
+        "json",
+        "xml"
+    }
 
     # =====================================
     # AWS S3
